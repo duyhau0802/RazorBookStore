@@ -1,0 +1,38 @@
+INSERT INTO Roles (Name) VALUES
+('Administrator'),
+('User');
+
+-- Insert Users first (before UserRoles that references them)
+INSERT INTO Users (Username, Email, PasswordHash, FullName, PhoneNumber, Status, CreatedAt) VALUES
+('admin', 'admin@gmail.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'Admin User', '+1234567890', 'ACTIVE', GETDATE()),
+('tole', 'tole@gmail.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'Tole User', '+1234567891', 'ACTIVE', GETDATE()),
+('techguru', 'techguru@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'Tech Expert', '+1234567892', 'ACTIVE', GETDATE()),
+('gamer123', 'gamer123@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'Pro Gamer', '+1234567893', 'ACTIVE', GETDATE()),
+('pcbuilder', 'pcbuilder@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'PC Builder', '+1234567894', 'ACTIVE', GETDATE()),
+('reviewer99', 'reviewer99@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'Product Reviewer', '+1234567895', 'ACTIVE', GETDATE()),
+('techfan', 'techfan@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKV4o.H0xCGpFfgOBkfz4XJ4.Qxe', 'Tech Enthusiast', '+1234567896', 'ACTIVE', GETDATE());
+
+-- Insert User Roles (using actual IDs after insertion)
+-- Get the actual IDs that were created
+DECLARE @AdminRoleId BIGINT, @UserRoleId BIGINT;
+DECLARE @AdminUserId BIGINT, @ToleUserId BIGINT, @TechguruUserId BIGINT, @Gamer123UserId BIGINT, @PcbuilderUserId BIGINT, @Reviewer99UserId BIGINT, @TechfanUserId BIGINT;
+
+SELECT @AdminRoleId = Id FROM Roles WHERE Name = 'Administrator';
+SELECT @UserRoleId = Id FROM Roles WHERE Name = 'User';
+
+SELECT @AdminUserId = Id FROM Users WHERE Username = 'admin';
+SELECT @ToleUserId = Id FROM Users WHERE Username = 'tole';
+SELECT @TechguruUserId = Id FROM Users WHERE Username = 'techguru';
+SELECT @Gamer123UserId = Id FROM Users WHERE Username = 'gamer123';
+SELECT @PcbuilderUserId = Id FROM Users WHERE Username = 'pcbuilder';
+SELECT @Reviewer99UserId = Id FROM Users WHERE Username = 'reviewer99';
+SELECT @TechfanUserId = Id FROM Users WHERE Username = 'techfan';
+
+INSERT INTO UserRoles (UserId, RoleId) VALUES
+(@AdminUserId, @AdminRoleId), -- admin - Administrator role
+(@ToleUserId, @AdminRoleId), -- tole - Administrator role  
+(@TechguruUserId, @UserRoleId), -- techguru - User role
+(@Gamer123UserId, @UserRoleId), -- gamer123 - User role
+(@PcbuilderUserId, @UserRoleId), -- pcbuilder - User role
+(@Reviewer99UserId, @UserRoleId), -- reviewer99 - User role
+(@TechfanUserId, @UserRoleId); -- techfan - User role
