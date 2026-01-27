@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RazorBookStore.Models
 {
-    public class UserRole
+    public class UserRoles
     {
         [Key]
         [Column(Order = 1)]

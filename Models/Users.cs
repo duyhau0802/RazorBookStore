@@ -26,9 +26,9 @@ namespace RazorBookStore.Models
         [MaxLength(20)]
         public string Status { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<UserRoles> UserRoles { get; set; } = new List<UserRoles>();
 
         public static void OnModelCreating(ModelBuilder builder)
         {
