@@ -40,6 +40,12 @@ namespace RazorBookStore.Pages.User
             // Set CreatedAt
             User.CreatedAt = DateTime.UtcNow;
             
+            // Hash password before saving
+            if (!string.IsNullOrEmpty(User.PasswordHash))
+            {
+                User.PasswordHash = BCrypt.Net.BCrypt.HashPassword(User.PasswordHash);
+            }
+            
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
             

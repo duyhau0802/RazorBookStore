@@ -1,4 +1,5 @@
-﻿@page
+﻿@page "/users/edit/{id:int}"
+@page "{id:int}"  // Fallback route
 @model RazorBookStore.Pages.User.EditModel
 @{
     ViewData["Title"] = "Edit User";
@@ -12,6 +13,7 @@
         <div class="row">
             <div class="col-6">
                 <form method="post">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="User.Id" />
                     <div class="form-group mb-3">
                         <label asp-for="User.Username" class="control-label"></label>
@@ -22,6 +24,11 @@
                         <label asp-for="User.Email" class="control-label"></label>
                         <input asp-for="User.Email" class="form-control" type="email" />
                         <span asp-validation-for="User.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="User.PasswordHash" class="control-label">Password</label>
+                        <input asp-for="User.PasswordHash" class="form-control" type="password" placeholder="Leave blank to keep current password" />
+                        <span asp-validation-for="User.PasswordHash" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-3">
                         <label asp-for="User.FullName" class="control-label"></label>
