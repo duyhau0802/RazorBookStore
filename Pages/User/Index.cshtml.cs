@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using RazorBookStore.DAL;
 using RazorBookStore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace RazorBookStore.Pages.User
 {
